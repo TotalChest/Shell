@@ -55,8 +55,8 @@ int main(int argc,char **argv){
             execlp("pwd","pwd",NULL);   
             exit(0);
         }
-        buf=(char*)malloc(64*sizeof(char));
-        pwd=read(fd[0],buf,64);
+        buf=(char*)malloc(100*sizeof(char));
+        pwd=read(fd[0],buf,100);
         waitpid(pwdpid,NULL,0);
         buf[pwd-1]='\0';
         printf("\033[01;34m[%s]>>>\033[01;0m ",buf);
@@ -456,7 +456,7 @@ void komand(int r,char **kom){
             printf("\033[1;31mНеверное количество аргументов \"cd\"!\033[01;0m\n");
         else{
             if (r==1)
-                chdir("/home/cmc");
+                chdir( getenv ("HOME"));
             else
                 if (chdir(kom[1])!=0)
                     printf("\033[1;31mОшибка \"cd\"!\033[01;0m\n");
